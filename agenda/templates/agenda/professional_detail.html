@@ -1,0 +1,32 @@
+{% extends 'agenda/base.html' %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-8">
+      <h2>{{ object.name }}</h2>
+      <p><strong>Especialidad:</strong> {{ object.specialty }}</p>
+      <p>{{ object.bio }}</p>
+
+      <h4>Servicios</h4>
+      <ul>
+        {% for s in object.services.all %}
+          <li>{{ s.name }} — {{ s.duration_minutes }} min — {% if s.price %} ${{ s.price }}{% else %} sin precio {% endif %}</li>
+        {% empty %}
+          <li>No hay servicios registrados.</li>
+        {% endfor %}
+      </ul>
+
+      <h4>Turnos</h4>
+      <ul>
+        {% for sh in object.shifts.all %}
+          <li>{{ sh.date }} {{ sh.start_time }} - {{ sh.end_time }} ({{ sh.max_clients }} lugares)</li>
+        {% empty %}
+          <li>No hay turnos definidos.</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <a class="btn btn-success w-100 mb-2" href="{% url 'agenda:appointment_create' %}">Reservar turno</a>
+      <a class="btn btn-outline-secondary w-100" href="{% url 'agenda:service_create' %}">Agregar servicio</a>
+    </div>
+  </div>
+{% endblock %}

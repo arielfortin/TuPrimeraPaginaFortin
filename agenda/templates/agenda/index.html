@@ -1,0 +1,30 @@
+{% extends 'agenda/base.html' %}
+{% block title %}Inicio - AgendaPro{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-12">
+      <h1>Agenda para Profesionales</h1>
+      <p>Elige un profesional, revisa los servicios y reserva tu turno.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    {% for prof in professionals %}
+      <div class="col-6 col-md-4 mb-3">
+        <div class="card card-professional">
+          {% if prof.photo %}
+            <img src="{{ prof.photo.url }}" class="card-img-top" alt="{{ prof.name }}">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ prof.name }}</h5>
+            <p class="card-text">{{ prof.specialty }}</p>
+            <a href="{{ prof.get_absolute_url }}" class="btn btn-sm btn-primary">Ver</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No hay profesionales aún.</p>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'agenda/base.html' %}
+{% block content %}
+  <h3>Resultados para "{{ query }}"</h3>
+
+  {% if results %}
+    <div class="list-group">
+      {% for p in results %}
+        <a href="{{ p.get_absolute_url }}" class="list-group-item list-group-item-action">
+          <strong>{{ p.name }}</strong> — {{ p.specialty }}
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No se encontraron resultados.</p>
+  {% endif %}
+{% endblock %}
